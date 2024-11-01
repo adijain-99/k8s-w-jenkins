@@ -62,6 +62,12 @@ sudo certbot --nginx -d localhost  - use this command if you direct your jenkins
 
 - go to jenkins -> Create New Item -> docker-automation ->  click on pipeline and create it.
 
+- necessary installed plugins - nodeJS and docker pipeline
+
+- then add the NOdJS location inside the MANAGE JENKINS>TOOLS, select the version and save.
+
+- 
+
 - 
 
 
