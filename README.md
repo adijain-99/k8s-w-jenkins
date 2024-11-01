@@ -60,6 +60,10 @@ sudo certbot --nginx -d localhost  - use this command if you direct your jenkins
 
 - create a basic node app locally and push it to git repo
 
+- go to jenkins -> Create New Item -> docker-automation ->  click on pipeline and create it.
+
+- 
+
 
 
 
