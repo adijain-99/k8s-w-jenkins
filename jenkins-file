@@ -1,0 +1,90 @@
+pipeline {
+    agent any
+    
+
+    environment {
+        // Set these environment variables in Jenkins
+        DOCKER_CREDENTIALS_ID = 'docker-hub-credentials' // Jenkins credentials ID for Docker Hub
+        IMAGE_NAME = 'adishrijain/nodejs-app' // Change to your Docker Hub image name
+    }
+
+    triggers {
+        pollSCM('* * * * *') // Poll SCM every minute for new commits
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your Git repository
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-creds', url: 'https://github.com/adijain-99/k8s-w-jenkins.git']])
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build the Docker image
+                    sh "sudo docker build -t ${IMAGE_NAME} ."
+                }
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    // Stop and remove the existing container if it exists
+                    sh '''
+                        if [ "$(sudo docker ps -q -f name=my_app_container)" ]; then
+                             sudo docker stop my_app_container
+                             sudo docker rm my_app_container
+                        fi
+                    '''
+                    // Run the Docker container (optional)
+                    sh "sudo docker run -d --name my_app_container -p 3000:3000 ${IMAGE_NAME}" // Change ports as needed
+                }
+            }
+        }
+
+        stage('Login to Docker Hub') {
+            steps {
+                script {
+                    // Log in to Docker Hub
+                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", 
+                                  usernameVariable: 'DOCKER_USERNAME', 
+                                  passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh "echo ${DOCKER_PASSWORD} | sudo docker login -u ${DOCKER_USERNAME} --password-stdin"
+                
+                    }                  
+                }
+                
+            }
+        }
+            
+            
+        
+        
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    sh "sudo docker push ${IMAGE_NAME}"
+                }
+            }
+        }
+        
+        
+        stage('Logout from Docker Hub') {
+            steps {
+                script {
+                    sh "sudo docker logout"
+                }
+            }
+        }    
+    }
+
+    post {
+        always {
+            // Cleanup resources if needed
+            sh "sudo docker system prune -f"
+        }
+    }
+}
