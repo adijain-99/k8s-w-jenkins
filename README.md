@@ -68,7 +68,11 @@ sudo certbot --nginx -d localhost  - use this command if you direct your jenkins
 
 - 
 
-- 
+- troubleshooting going on for couple of hours now - docker not installing in ubuntu 24.04, 2 docker.list files were created so had to delete one, - now git was not configuring in jenkins so did that as well by providing the local path of git to jenkins - now trying to solve the permissions of docker in jenkins so that it can use sudo w/o password so editing the visudo file. - then encountered this error "ERROR: invalid tag "adishrijain/nodeJS-app": repository name must be lowercase" - will change this now in the script - sorted - but then when I built it again, the container was already there so it threw an error so am changing the script accordingly - that was sorted - new error : docker push stage - denied: requested access to the resource is denied -added docker login and the problem is solved. - 
+
+- finally the image is pushed to the docker hub.
+
+-  
 
 
 
