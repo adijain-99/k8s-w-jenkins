@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
           font-family: Arial, sans-serif;
         }
         button {
-          background-color: grey;
+          background-color: blue;
           color: white;
           border: none;
           padding: 10px 20px;
