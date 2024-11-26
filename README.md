@@ -1,5 +1,5 @@
 # K8s-with-Jenkins
-CI/CD with Jenkins and deploying application on K8s > blockquote
+## CI/CD with Jenkins and deploying application on K8s 
 
 dev -> push code to GitHub(SCM) -> notifies Jenkins -> Build and Test w Maven -> Static Code Analysis w SonarQube -> build & push docker image -> scan this docker image -> w Trivy Artifact scan -> update k8s manifests to DevOps Repo -> to ArgoCD(monitors repo for changes) -> deploy to k8s -> send notification on slack
 
