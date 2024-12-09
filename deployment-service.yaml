@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-w-jenkins
+spec:
+  selector:
+    matchLabels:
+      app: k8s-pipeline
+  replicas: 2
+  template: 
+    metadata:
+      labels:
+        app: k8s-pipeline
+    spec:
+      containers: 
+        - name: k8s-pipeline
+          image: adishrijain/nodejs-app
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
