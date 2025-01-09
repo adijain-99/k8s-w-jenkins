@@ -2,7 +2,7 @@
 
 ## CI/CD with Jenkins and deploying application on K8s 
 
-**Pipiline** - dev -> push code to GitHub(SCM) -> notifies Jenkins -> Build the pipeline -> Static Code Analysis w SonarQube -> build & push docker image -> scan this docker image -> w Trivy Artifact scan(if) -> update k8s manifests to DevOps Repo -> to ArgoCD(monitors repo for changes) -> deploy to k8s -> send notification on slack
+**Pipiline** - dev -> push code to GitHub(SCM) -> notifies Jenkins -> Build the pipeline -> Static Code Analysis w SonarQube -> build & push docker image -> 
 
 ### System procedures
 
@@ -53,13 +53,7 @@ sudo chmod +x /usr/local/bin/minikube`
 - finally the image is pushed to the docker hub.
 
 
-now push to k8s cluster
 
-- start dockerdesktop, jenkins(8080)
-- add a stage in the pipeline to push the image to k8s
-- before this we have to start our minikube server
-- 
-- 
 
 
 
